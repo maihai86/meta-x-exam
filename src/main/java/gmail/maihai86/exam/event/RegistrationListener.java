@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -51,6 +50,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
             log.info("send email result: {}, {}", response.getStatus(), response.getBody().toString());
         } catch (UnirestException e) {
             log.error("confirmRegistration ERROR", e);
+            throw new RuntimeException(e);
         }
     }
 
