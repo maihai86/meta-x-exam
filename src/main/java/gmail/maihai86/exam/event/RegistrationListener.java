@@ -1,7 +1,6 @@
 package gmail.maihai86.exam.event;
 
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import gmail.maihai86.exam.model.User;
@@ -38,8 +37,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private void confirmRegistration(final OnRegistrationCompleteEvent event) {
         final SimpleMailMessage email = constructEmailMessage(event, event.getUser(), event.getToken());
 
-        log.info("MAILGUN_DOMAIN={}", System.getenv("MAILGUN_DOMAIN"));
-        log.info("MAILGUN_API_KEY={}", System.getenv("MAILGUN_API_KEY"));
         try {
             HttpResponse<String> response = Unirest.post("https://api.mailgun.net/v3/" + System.getenv("MAILGUN_DOMAIN") + "/messages")
                     .basicAuth("api", System.getenv("MAILGUN_API_KEY"))
@@ -49,6 +46,9 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
                     .queryString("text", email.getText())
                     .asString();
             log.info("send email result: {}, {}", response.getStatus(), response.getBody().toString());
+            if (response.getStatus() != 200) {
+                throw new RuntimeException(String.format("Send activation email to this address \"%s\" failed!", email.getTo()[0]));
+            }
         } catch (UnirestException e) {
             log.error("confirmRegistration ERROR", e);
             throw new RuntimeException(e);
