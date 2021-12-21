@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(pageTitle='Reset Display Name')" />
+<body>
+	<div th:replace="fragments :: header"></div>
+	<div align="center">
+		<h1>Reset Display Name</h1>
+		<br/>
+		<form action="#" th:action="@{/reset-display-name}" th:object="${resetNameReq}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>New display name:</td>
+					<td><input type="text" th:field="*{displayName}" class="form-control" placeholder="Enter display name" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><button type="submit" class="btn btn-primary">Reset display name</button></td>
+				</tr>
+			</table>
+			<br/>
+			<div th:if="${#fields.hasAnyErrors() || #fields.hasErrors('global')}">
+				<h4 class="text-danger">Errors:</h4>
+				<ul>
+					<li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger" />
+				</ul>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

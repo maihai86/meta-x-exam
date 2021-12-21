@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: html_head(pageTitle='Dashboard')" />
+<body>
+	<div th:replace="fragments :: header"></div>
+	<br/>
+	<div sec:authorize="isAuthenticated()" class="text-center p-3">
+		<span sec:authentication="principal.user.displayName">Display name</span>
+	</div>
+	<div class="container text-center">
+		<div><h1>Dashboard</h1></div>
+
+		<div sec:authorize="isAuthenticated()" class="text-center p-3">
+			<div th:if="${#authentication.principal.user != null && #authentication.principal.user.enabled}">
+				<br/>
+				<h4><a th:href="@{/reset-display-name}">Reset Display Name</a></h4>
+				<br/>
+				<h4><a th:href="@{/reset-password}">Reset Password</a></h4>
+				<br/>
+			</div>
+		</div>
+
+		<div sec:authorize="!isAuthenticated()" class="text-center p-3">
+			<div>
+				<br/>
+				<h4><a th:href="@{/register}">Sign Up</a></h4>
+				<br/>
+				<br/>
+				<h4><a th:href="@{/login}">Sign In</a></h4>
+			</div>
+		</div>
+		<p th:text="${param.login}" class="text-danger"></p>
+
+		<br/>
+		<div th:if="${message}" th:text="${message}" class="text-success"/>
+	</div>
+</body>
+</html>

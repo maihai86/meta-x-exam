@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(pageTitle='Resend Email Verification')" />
+<body>
+	<div th:replace="fragments :: header"></div>
+	<div align="center">
+		<h1>Resend Email Verification</h1>
+		<br/>
+		<form action="#" th:action="@{/resend-email-verify}" th:object="${resendTokenReq}" method="post">
+			<table border="0" cellpadding="10">
+				<tr style="display: none;">
+					<td>
+						<input type="hidden" th:field="*{token}" style="display: none;" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><button type="submit" class="btn btn-primary">Resend</button></td>
+				</tr>
+			</table>
+			<br/>
+			<div th:if="${#fields.hasAnyErrors() || #fields.hasErrors('global')}">
+				<h4 class="text-danger">Errors:</h4>
+				<ul>
+					<li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger" />
+				</ul>
+			</div>
+		</form>
+
+		<br/>
+		<div th:if="${message}" th:text="${message}" class="text-success"/>
+	</div>
+</body>
+</html>

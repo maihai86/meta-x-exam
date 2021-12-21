@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(pageTitle='Sign In')"/>
+<body>
+<div class="container text-center">
+    <div>
+        <h2>Sign In</h2>
+        <br/>
+    </div>
+
+    <form th:action="@{/login}" method="post" style="max-width: 400px; margin: 0 auto;">
+        <div class="border border-secondary rounded p-3">
+            <div>
+                <p><input type="email" name="email" required class="form-control" placeholder="E-mail"/></p>
+            </div>
+            <div>
+                <p><input type="password" name="pass" required class="form-control" placeholder="Password"/></p>
+            </div>
+            <div>
+                <p><input type="submit" value="Login" class="btn btn-primary"/></p>
+            </div>
+            <div th:if="${param.logout}">
+                <p class="text-warning">You have been logged out.</p>
+            </div>
+            <p th:text="${param.error}" class="text-danger"></p>
+        </div>
+    </form>
+
+    <div><p>OR</p></div>
+    <div>
+        <p class="social-login text-center">
+            Sign in with:
+            <a th:href="@{/oauth2/authorization/google}" class="ml-2">
+                <img alt="Login with Google" th:src="@{../static/img/google.png}" class="btn-img">
+            </a>
+            <a th:href="@{/oauth2/authorization/facebook}">
+                <img alt="Login with Facebook" th:src="@{../static/img/facebook.png}" class="btn-img">
+            </a>
+        </p>
+    </div>
+
+    <br/>
+    <div th:if="${message}" th:text="${message}" class="text-success"/>
+</div>
+</body>
+</html>

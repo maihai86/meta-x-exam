@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-34-198-122-185.compute-1.amazonaws.com:5432/d6d6eaj5ssf7h7?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: rwlwiaoacexrkf
+    password: 9fd8c1b99f0d48e160b1877bcd01026de76c437c39565157d6f51c06aef4be1b
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+
+  security:
+    oauth2:
+      client:
+        provider:
+          facebook:
+            user-info-uri: https://graph.facebook.com/me?fields=id,name,email,picture
+        registration:
+          facebook:
+            clientId: 2690210574458417
+            clientSecret: 95241a459aba5feaaf79e04b3ac5b138
+          google:
+            clientId: 192667175449-6grnc55hio5gc38lmmtcc709t3ob3opl.apps.googleusercontent.com
+            clientSecret: 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
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+support:
+  email: maihai86@gmail.com
+  host: https://haimt-meta-x-exam.herokuapp.com
