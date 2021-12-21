@@ -37,13 +37,12 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
     private void confirmRegistration(final OnRegistrationCompleteEvent event) {
         final SimpleMailMessage email = constructEmailMessage(event, event.getUser(), event.getToken());
-        /*mailSender.send(email);*/
 
         log.info("MAILGUN_DOMAIN={}", System.getenv("MAILGUN_DOMAIN"));
-        log.info("MAILGUN_PUBLIC_KEY={}", System.getenv("MAILGUN_PUBLIC_KEY"));
+        log.info("MAILGUN_API_KEY={}", System.getenv("MAILGUN_API_KEY"));
         try {
             HttpResponse<String> response = Unirest.post("https://api.mailgun.net/v3/" + System.getenv("MAILGUN_DOMAIN") + "/messages")
-                    .basicAuth("api", System.getenv("MAILGUN_PUBLIC_KEY"))
+                    .basicAuth("api", System.getenv("MAILGUN_API_KEY"))
                     .queryString("from", supportEmail)
                     .queryString("to", email.getTo()[0])
                     .queryString("subject", email.getSubject())
