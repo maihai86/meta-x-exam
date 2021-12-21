@@ -31,9 +31,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     @Value("${support.host}")
     private String supportHost;
 
-    @Autowired
-    private JavaMailSender mailSender;
-
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
         this.confirmRegistration(event);
