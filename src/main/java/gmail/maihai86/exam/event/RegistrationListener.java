@@ -39,14 +39,16 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         final SimpleMailMessage email = constructEmailMessage(event, event.getUser(), event.getToken());
         /*mailSender.send(email);*/
 
+        log.info("MAILGUN_DOMAIN={}", System.getenv("MAILGUN_DOMAIN"));
+        log.info("MAILGUN_PUBLIC_KEY={}", System.getenv("MAILGUN_PUBLIC_KEY"));
         try {
-            HttpResponse<JsonNode> response = Unirest.post("https://api.mailgun.net/v3/" + System.getenv("MAILGUN_DOMAIN") + "/messages")
+            HttpResponse<String> response = Unirest.post("https://api.mailgun.net/v3/" + System.getenv("MAILGUN_DOMAIN") + "/messages")
                     .basicAuth("api", System.getenv("MAILGUN_PUBLIC_KEY"))
                     .queryString("from", supportEmail)
                     .queryString("to", email.getTo()[0])
                     .queryString("subject", email.getSubject())
                     .queryString("text", email.getText())
-                    .asJson();
+                    .asString();
             log.info("send email result: {}, {}", response.getStatus(), response.getBody().toString());
         } catch (UnirestException e) {
             log.error("confirmRegistration ERROR", e);
