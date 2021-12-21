@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-34-198-122-185.compute-1.amazonaws.com:5432/d6d6eaj5ssf7h7?useSSL=false&useUnicode=true&characterEncoding=UTF-8
-    username: rwlwiaoacexrkf
-    password: 9fd8c1b99f0d48e160b1877bcd01026de76c437c39565157d6f51c06aef4be1b
+    url: jdbc:postgresql://ec2-44-199-49-128.compute-1.amazonaws.com:5432/d7aock7g38brpf?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: aqdvycmcvlgqzr
+    password: 68f79432cdbd8b392c3542bf85a0d14aaa6144b4f87ae6b64c48292c731e43f6
     driver-class-name: org.postgresql.Driver
 
   jpa:
